@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <style>
+        /* Styling the body element */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Styling the form element */
+        form {
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #ccc;
+            
+            
+        }
+
+        /* Styling the form heading */
+        h1 {
+            text-align: center;
+            color: purple;
+        }
+
+        /* Styling the form-control class */
+        .form-control {
+            margin-bottom: 10px;
+            display:flex;
+        }
+
+        /* Styling the form-control label */
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Styling the form-control input, select and textarea */
+        .form-control input, .form-control select, .form-control textarea {
+            margin-left: 25px;
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Styling the form-control checkbox and radio */
+        .form-control input[type="checkbox"], .form-control input[type="radio"] {
+            display: inline-block;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        /* Styling the button class */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0099ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 150px;
+        }
+
+        /* Styling the button class on hover */
+        .button:hover {
+            background-color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <form id="survey-form">
+        <h1>Survey Form</h1>
+        
+        <!-- First Name -->
+        <div class="form-control">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" placeholder="Family Name">
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-control">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" placeholder="Name">
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-control">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
+
+        <!-- Country -->
+        <div class="form-control">
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+                <option value="">Select a country</option>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="UK">UK</option>
+                <option value="China">China</option>
+               
+            </select>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-control">
+            <label>Gender</label>
+            <!-- Use name attribute to group radio buttons -->
+            <input type="radio" id="male" name="gender" value="Male" required>
+            <label for="male">Male</label>
+            
+            <input type="radio" id="female" name="gender" value="Female" required>
+            <label for="female">Female</label>
+
+            <input type="radio" id="other" name="gender" value="Other" required>
+            <label for="other">Other</label>
+            
+        </div>
+
+         <!-- Profession -->
+         <div class="form-control">
+             <label for="profession">Profession</label>
+             <input type="text" id="profession" name="profession" placeholder="Student" required>
+         </div>
+
+         <!-- Email -->
+         <div class="form-control">
+             <label for="email">Email</label>
+             <!-- Use type attribute to specify email input -->
+             <input type="email" id="email" name="email" placeholder="example@gmail.com">
+         </div>
+
+         <!-- Mobile Number -->
+         <div class="form-control">
+             <label for="mobile">Mobile Number</label>
+             
+             <input type="number" id="mobile" name="mobile" pattern="[0-9]{10}" title="Enter a 10-digit mobile number" placeholder="+91 000000000">
+         </div>
+
+         <!-- Buttons -->
+         <div class="form-control">
+             <!-- Use type attribute to specify button functionality -->
+             <button type="submit" class="button">Submit</button>
+             <button type="reset" class="button">Reset</button>
+         </div>
+    </form>
+
+    <!-- Script to handle form submission and validation -->
+    <script>
+        // Get the form element by id
+        const form = document.getElementById("survey-form");
+
+        // Add an event listener to handle form submission
+        form.addEventListener("submit", function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Get the form data as an object
+            const formData = Object.fromEntries(new FormData(form));
+
+            // Validate the form data
+            if (validateFormData(formData)) {
+                // Show the form data in a popup
+                showFormData(formData);
+
+                // Reset the form
+                form.reset();
+            }
+        });
+
+        // Function to validate the form data
+        function validateFormData(formData) {
+            // Check if the mobile number is 10 digits
+            if (formData.mobile.length !== 10) {
+                alert("Please enter a valid mobile number");
+                return false;
+            }
+
+            // Add more validation rules as needed
+
+            // Return true if all validations pass
+            return true;
+        }
+
+        // Function to show the form data in a popup
+        function showFormData(formData) {
+            // Create an array of label-value pairs from the form data
+            const data = Object.entries(formData).map(([key, value]) => {
+                // Capitalize the first letter of the key and use it as the label
+                const label = key[0].toUpperCase() + key.slice(1);
+                return `${label}: ${value}`;
+            });
+
+            // Join the array elements with line breaks and show it in an alert box
+            alert(data.join("\n"));
+        }
+    </script>
+</body>
+</html>
